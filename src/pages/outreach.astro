@@ -1,0 +1,365 @@
+---
+import { bandStyle } from '../lib/band';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import policyBrief from '../assets/covers/policy-brief.png';
+import comic from '../assets/covers/comic.png';
+import astro from '../assets/covers/astropatrulla.png';
+
+const lab = 'https://aircraftoperationslab.com';
+
+const reads = [
+  {
+    cover: policyBrief,
+    title: 'Making Contrails Visible',
+    sub: 'E-CONTRAIL policy brief · 2025',
+    text: 'AI-based insights into aviation’s climate impact using satellite imagery: the scientific results and evidence-based recommendations of the E-CONTRAIL project.',
+    url: 'https://doi.org/10.5281/zenodo.17534712',
+    cta: 'Read the policy brief',
+  },
+  {
+    cover: comic,
+    title: 'Un problema de altos vuelos',
+    sub: 'Comic strip · 2025 · in Spanish',
+    text: 'The main findings of the E-CONTRAIL project told as a comic: how contrails are detected and what they do to the climate.',
+    url: 'https://doi.org/10.5281/zenodo.17534862',
+    cta: 'Read the comic',
+  },
+  {
+    cover: astro,
+    title: 'La Astropatrulla Basurilla',
+    sub: 'Children’s book · 2025 · in Spanish',
+    text: 'A crew of unlikely astronauts builds a rocket to clean up space debris. Used in schools together with the water-rocket workshop.',
+    url: '/book/la-astropatrulla-basurilla/',
+    cta: 'About the book',
+  },
+];
+
+const groups = [
+  {
+    id: 'science-events',
+    label: 'Researchers’ Night and Science Week',
+    items: [
+      {
+        year: '2025',
+        title: 'Semana de la Ciencia: construye y lanza un cohete de agua de la mano de La Astropatrulla Basurilla',
+      },
+      {
+        year: '2024',
+        title:
+          'Researchers’ Night, Teatro y ciencia: IA para ver el impacto en el clima de las estelas de condensación de los aviones',
+      },
+      {
+        year: '2023',
+        title: 'Researchers’ Night, Teatro y ciencia: los retos de una Europa verde',
+        url: 'https://www.uc3m.es/ss/Satellite/UC3MInstitucional/es/TextoMixta/1371367250170/',
+      },
+      {
+        year: '2021',
+        title: 'Researchers’ Night, Zénit: ciencia verde para un mundo más sostenible',
+        url: 'https://www.uc3m.es/ss/Satellite/UC3MInstitucional/es/TextoDosColumnas/1371315576285/Zenit:_ciencia_verde_para_un_mundo_mas_sostenible',
+      },
+    ],
+  },
+  {
+    id: 'science-fairs',
+    label: 'Education Week and science fairs',
+    items: [
+      {
+        year: '2026',
+        title: 'Build and launch a water rocket with La Astropatrulla Basurilla (Madrid es Ciencia)',
+        url: `${lab}/2026/03/23/launching-water-rockets-at-madrid-es-ciencia-2026/`,
+      },
+      {
+        year: '2024',
+        title: 'How do aircraft contrails affect climate change?',
+        url: `${lab}/2024/03/04/education-week-how-do-aircraft-contrails-affect-climate-change/`,
+      },
+    ],
+  },
+  {
+    id: 'schools',
+    label: 'Activities in schools',
+    items: [
+      {
+        year: '2026',
+        title: '“Chemtrails or Contrails? That Is the Question”, talk for vocational training students at IES Julio Verne',
+        url: `${lab}/2026/04/20/outreach-activity-at-ies-julio-verne-chemtrails-or-contrails-that-is-the-question/`,
+      },
+      {
+        year: '2025',
+        title: 'Water-rocket building and launch workshop at CEIP Teresa Berganza',
+      },
+      {
+        year: '2024',
+        title:
+          'El impacto de las estelas de condensación de los aviones en el cambio climático, Instituto Gerardo Diego (PEAC Madrid Oeste)',
+        url: 'https://www.uc3m.es/ss/Satellite/UC3MInstitucional/es/TextoDosColumnas/1371384734120/',
+      },
+      {
+        year: '2024',
+        title: 'E-CONTRAIL workshop inspires young STEAM talents at La Salle school',
+        url: `${lab}/2024/02/01/e-contrail-workshop-inspires-young-steam-talents-at-la-salle-school/`,
+      },
+      {
+        year: '2023',
+        title: 'The phases of the Moon through a participatory experiment, CEIP Teresa Berganza',
+        url: `${lab}/2023/03/27/aerospace-lessons-at-elementary-school/`,
+      },
+      {
+        year: '2023',
+        title: 'Creative writing workshop on the universe, CEIP Teresa Berganza',
+      },
+    ],
+  },
+  {
+    id: 'media',
+    label: 'In the media',
+    items: [
+      {
+        year: '2023',
+        title: 'Interview about FlyATM4E at Airspace World',
+        url: `${lab}/2023/03/24/interview-about-flyatm4e-at-airspace-world/`,
+      },
+      {
+        year: '2022',
+        title: 'ALARM: more safety, capacity and efficiency for flights and less environmental impact (video)',
+        url: `${lab}/2022/10/31/alarm-more-safety-capacity-and-efficiency-for-flights-and-less-environmental-impact/`,
+      },
+      {
+        year: '2022',
+        title: 'START: the importance of innovation for air traffic controllers (video)',
+        url: `${lab}/2022/10/20/the-importance-of-innovation-for-air-traffic-controllers/`,
+      },
+      {
+        year: '2022',
+        title: 'FMP-Met: integrating weather uncertainty information into FMP tools (video)',
+        url: `${lab}/2022/09/13/integrating-weather-uncertainty-information-into-fmp-tools-for-better-decision-making-in-atm/`,
+      },
+      {
+        year: '2021',
+        title: 'Cadena SER: entrevista sobre el proyecto ALARM',
+        url: 'https://cadenaser.com/emisora/2021/04/07/ser_madrid_sur/1617795876_690636.html',
+      },
+      {
+        year: '',
+        title: 'Fundación madri+d: desarrollan un prototipo de alerta de fenómenos naturales peligrosos para la aviación',
+        url: 'http://www.madrimasd.org/desarrollan-un-prototipo-alerta-fenomenos-naturales-peligrosos-aviacion',
+      },
+      {
+        year: '',
+        title: '“La caja negra del vuelo de Malaysia Airlines se encontrará”',
+        url: 'https://www.tendencias21.es/Manuel-Soler-La-caja-negra-del-vuelo-de-Malaysia-Airlines-se-encontrara_a32140.html',
+      },
+    ],
+  },
+];
+
+const videos = [
+  { id: 'O2TvoBxFiuk', title: 'El catedrático de la UC3M Manuel Soler, nominado a los Frontiers Planet Prize', by: 'UC3M' },
+  {
+    id: 'qEvUPQHX8js',
+    title: 'IA para ver el impacto en el clima de las estelas de condensación de los aviones',
+    by: 'UC3M',
+  },
+  { id: '8UyAwRYAd3Q', title: 'Trayectorias de aviones climáticamente óptimas', by: 'UC3M' },
+  { id: 'dJwvDebPp48', title: 'Teatro y Ciencia en la Noche de los Investigadores', by: 'Manuel Soler UC3M' },
+  { id: 'VVNYFahmRsE', title: 'State of the Climate report', by: 'E-CONTRAIL 2 project' },
+  { id: 'dm9W9D3TXaI', title: 'E-CONTRAIL project intermediate results', by: 'E-CONTRAIL 2 project' },
+  { id: '6fy0144g0SQ', title: 'E-CONTRAIL project', by: 'E-CONTRAIL 2 project' },
+  { id: 'PCKcSJW8DkY', title: 'RefMap Interviews: Manuel Soler', by: 'RefMap Project' },
+  { id: 'hLHcQmMqlHU', title: 'The KAIROS project', by: 'KAIROS Project' },
+  { id: 'MByF2EabQq0', title: 'SESAR Interview Airspace World: FlyATM4E', by: 'ATCNetworkTV' },
+  { id: 'FymsNU9Jwws', title: 'ALARM achievements and solutions', by: 'Manuel Soler UC3M' },
+  { id: 'WL89LaqaE2o', title: 'Interview START Project: key achievements', by: 'Manuel Soler UC3M' },
+  { id: 'R6r2RADRZGU', title: 'Proyecto START', by: 'UC3M' },
+  { id: 'fNGTv3Itacc', title: 'Talk at the Met Tech virtual conference', by: 'Manuel Soler UC3M' },
+];
+---
+
+<Base title="Outreach" description="Outreach activities, popular science, media and videos by Manuel Soler.">
+  <section class="pband" style={await bandStyle('contrails', 'center 85%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Outreach</p>
+      <h1>Science for everyone</h1>
+      <p class="pband__lead">
+        Alongside research I run outreach activities, mainly for primary and secondary schools, combining arts and
+        science: the European Researchers' Night, Science Week, school visits and science fairs, plus videos for the
+        general public.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page">
+    <section class="block">
+      <h2 id="reads">To read</h2>
+      <ul class="reads">
+        {
+          reads.map((r) => (
+            <li>
+              <a class="reads__cover" href={r.url} tabindex="-1" aria-hidden="true">
+                <Image src={r.cover} alt="" width={360} />
+              </a>
+              <p class="reads__sub">{r.sub}</p>
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+              <a class="arrow-link" href={r.url}>
+                {r.cta}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="narrow">
+      {
+        groups.map((g) => (
+          <section class="block">
+            <h2 id={g.id}>{g.label}</h2>
+            <ul class="rows">
+              {g.items.map((i) => (
+                <li>
+                  <span class="rows__label">{i.year}</span>
+                  <div class="rows__title">{i.url ? <a href={i.url}>{i.title}</a> : i.title}</div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <section class="block">
+      <h2 id="videos">Videos</h2>
+      <p class="block__intro">Talks, interviews and project videos. Each one opens on YouTube.</p>
+      <ul class="videos">
+        {
+          videos.map((v) => (
+            <li>
+              <a href={`https://www.youtube.com/watch?v=${v.id}`}>
+                <span class="videos__thumb">
+                  <img src={`https://i.ytimg.com/vi/${v.id}/mqdefault.jpg`} alt="" loading="lazy" width="320" height="180" />
+                </span>
+                <span class="videos__title">{v.title}</span>
+                <span class="videos__by">{v.by}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .narrow {
+    max-width: 900px;
+  }
+  .narrow .block {
+    margin-bottom: clamp(44px, 6vw, 72px);
+  }
+  .reads {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .reads__cover {
+    display: block;
+    aspect-ratio: 3 / 4;
+    background: var(--soft);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .reads__cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .reads__sub {
+    margin: 0 0 6px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+  .reads h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+  }
+  .reads p:not(.reads__sub) {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+  .videos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 28px 24px;
+  }
+  .videos a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+  }
+  .videos__thumb {
+    display: block;
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: var(--night);
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .videos__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.25s;
+  }
+  .videos__thumb::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    width: 0;
+    height: 0;
+    border-left: 16px solid #fff;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.6));
+  }
+  .videos a:hover img {
+    transform: scale(1.04);
+  }
+  .videos__title {
+    display: block;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--head);
+  }
+  .videos a:hover .videos__title {
+    color: var(--blue);
+  }
+  .videos__by {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  @media (max-width: 800px) {
+    .reads {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+    }
+  }
+</style>

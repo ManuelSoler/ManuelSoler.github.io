@@ -1,0 +1,340 @@
+---
+import '@fontsource/jost/400.css';
+import '@fontsource/jost/500.css';
+import '@fontsource/jost/600.css';
+import '@fontsource/alata/400.css';
+import '../styles/global.css';
+import { site, nav } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+}
+
+const { title, description, lang = 'en' } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · Aviation and climate research`;
+const pageDescription =
+  description ??
+  'Manuel Soler, Full Professor of Aerospace Engineering at UC3M. Research on contrails, aviation climate impact and climate-optimized aircraft trajectories.';
+const path = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {import.meta.env.PUBLIC_NOINDEX && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="topbar">
+      <div class="wrap topbar__in">
+        <span>{site.role} · {site.affiliation}</span>
+        <span class="topbar__links">
+          <a href={site.labUrl}>{site.labName}</a>
+          <a href={site.labLinkedIn}>LinkedIn</a>
+        </span>
+      </div>
+    </div>
+
+    <header class="header">
+      <div class="wrap header__in">
+        <a class="brand" href="/" aria-label={`${site.name}, home`}>
+          <span class="brand__name">{site.name}</span>
+          <span class="brand__tag">Aviation &amp; climate research</span>
+        </a>
+
+        <div class="menu">
+          <button class="menu__btn" type="button" aria-expanded="false" aria-controls="main-nav">Menu</button>
+          <nav id="main-nav" aria-label="Main">
+            <ul>
+              {
+                nav.map((item) => (
+                  <li>
+                    {item.href ? (
+                      <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                        {item.label}
+                      </a>
+                    ) : (
+                      <span class="soon" title="Planned section, not in this prototype yet">
+                        {item.label}
+                      </span>
+                    )}
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__in">
+        <div>
+          <p class="footer__name">{site.name}</p>
+          <p>
+            {site.role}<br />
+            Department of Aerospace Engineering<br />
+            {site.affiliation}
+          </p>
+        </div>
+        <div>
+          <p class="footer__h">Profiles</p>
+          <ul>
+            <li><a href={site.orcid}>ORCID</a></li>
+            <li><a href={site.scopus}>Scopus</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__h">Lab &amp; programmes</p>
+          <ul>
+            <li><a href={site.labUrl}>{site.labName}</a></li>
+            <li><a href={site.labLinkedIn}>Lab on LinkedIn</a></li>
+            <li><a href={site.phdProgramme}>PhD Programme in Aerospace Engineering</a></li>
+            <li><a href={site.spinOff}>AI Methods (spin-off)</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="wrap footer__legal">© {new Date().getFullYear()} {site.name}</div>
+    </footer>
+
+    <script>
+      const btn = document.querySelector<HTMLButtonElement>('.menu__btn');
+      const menu = btn?.closest('.menu');
+      btn?.addEventListener('click', () => {
+        const open = menu!.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    </script>
+  </body>
+</html>
+
+<style>
+  .skip {
+    position: absolute;
+    left: -9999px;
+  }
+  .skip:focus {
+    left: 16px;
+    top: 16px;
+    z-index: 100;
+    background: #fff;
+    padding: 8px 14px;
+  }
+
+  .topbar {
+    background: var(--blue);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.86rem;
+  }
+  .topbar__in {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    min-height: 40px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .topbar__links {
+    display: flex;
+    gap: 22px;
+    flex-shrink: 0;
+  }
+  .topbar a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .topbar a:hover {
+    text-decoration: underline;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    min-height: 76px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    line-height: 1.1;
+  }
+  .brand__name {
+    font-family: var(--title);
+    font-size: 1.55rem;
+    color: var(--blue);
+  }
+  .brand__tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+    margin-top: 4px;
+  }
+
+  .menu__btn {
+    display: none;
+  }
+  .menu ul {
+    list-style: none;
+    display: flex;
+    gap: clamp(14px, 1.8vw, 26px);
+    margin: 0;
+    padding: 0;
+    font-size: 0.98rem;
+    font-weight: 500;
+  }
+  .menu a {
+    color: var(--ink);
+    text-decoration: none;
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+  }
+  .menu a:hover,
+  .menu a[aria-current='page'] {
+    color: var(--blue);
+    border-bottom-color: var(--gold);
+  }
+  .soon {
+    color: #9aa0b3;
+    cursor: default;
+  }
+
+  @media (max-width: 1020px) {
+    .menu__btn {
+      display: block;
+      cursor: pointer;
+      padding: 9px 20px;
+      border: 2px solid var(--blue);
+      background: #fff;
+      color: var(--blue);
+      font-family: var(--font);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-size: 0.86rem;
+    }
+    .menu.is-open .menu__btn {
+      background: var(--blue);
+      color: #fff;
+    }
+    .menu nav {
+      display: none;
+    }
+    .menu.is-open nav {
+      display: block;
+    }
+    .menu nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      box-shadow: 0 18px 30px rgba(11, 12, 42, 0.12);
+    }
+    .menu ul {
+      flex-direction: column;
+      gap: 0;
+      padding: 8px var(--gutter) 18px;
+      font-size: 1.1rem;
+    }
+    .menu li {
+      border-bottom: 1px solid var(--line);
+    }
+    .menu li:last-child {
+      border-bottom: 0;
+    }
+    .menu a,
+    .soon {
+      display: block;
+      padding: 13px 0;
+    }
+    .topbar__in > span:first-child {
+      display: none;
+    }
+    .topbar__in {
+      justify-content: flex-end;
+    }
+  }
+
+  .footer {
+    background: var(--night);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.95rem;
+    padding-top: 56px;
+  }
+  .footer__in {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr 1.2fr;
+    gap: 40px;
+  }
+  .footer__name {
+    font-family: var(--title);
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .footer__h {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-2);
+    margin-bottom: 12px;
+  }
+  .footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer li {
+    margin-bottom: 8px;
+  }
+  .footer a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  .footer__legal {
+    margin-top: 44px;
+    padding-top: 18px;
+    padding-bottom: 26px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 0.85rem;
+  }
+  @media (max-width: 760px) {
+    .footer__in {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>

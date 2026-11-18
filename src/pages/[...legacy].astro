@@ -1,0 +1,31 @@
+---
+import { bandStyle } from '../lib/band';
+// Pages carried over unchanged from the previous WordPress site (currently the
+// Teaching section). They keep their original addresses.
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('legacy');
+  return pages.map((page) => ({ params: { legacy: page.data.path }, props: { page } }));
+}
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+const isChild = page.data.path.startsWith('teaching/');
+---
+
+<Base title={page.data.title}>
+  <section class="pband" style={await bandStyle('apron', 'center 20%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">{isChild ? <a href="/teaching/">Teaching</a> : 'Teaching'}</p>
+      <h1>{page.data.title}</h1>
+    </div>
+  </section>
+
+  <div class="wrap page page--narrow">
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</Base>

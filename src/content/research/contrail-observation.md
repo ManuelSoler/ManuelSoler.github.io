@@ -1,0 +1,67 @@
+---
+title: Contrail Observation
+order: 1
+tagline: Detecting contrails from space and measuring, from observations, what they do to the climate.
+summary: AI-based detection of contrails in satellite imagery and observation-based estimates of their radiative forcing over Europe and the North Atlantic.
+cardImage: /figures/F04_automated_contrail_detection.png
+people:
+  - name: Irene Ortiz
+    role: Satellite contrail detection and radiative forcing
+  - name: Javier García-Heras
+    role: Co-principal investigator
+  - name: Alejandra Martín Frías
+    role: Contrail avoidance and MRV (industrial PhD, Flightkeys)
+projects:
+  - name: E-CONTRAIL 2
+    description: Multi-sensor, physics-informed contrail detection, radiative forcing estimation and interactive climate analytics.
+    funding: SESAR 3 JU · Horizon Europe
+    url: https://www.econtrail.com
+  - name: ClimAtion
+    description: Climate-smart optimal aircraft operations for next-generation aviation.
+    funding: Spanish National R&D Plan · 2026–2029
+    url: https://aircraftoperationslab.com/climation
+  - name: HARMONY-MRV
+    description: A non-CO₂ monitoring, reporting and verification digital service with uncertainty quantification and mitigation alternatives.
+    funding: Engage 2 · 2026–2027
+    url: https://aircraftoperationslab.com/harmony-mrv
+  - name: Contrail Aware
+    description: Advancing state-of-the-art contrail research into a practical industry solution.
+    funding: Public–private collaboration · 2026–2029
+    url: https://aircraftoperationslab.com/contrail-aware
+---
+
+## Automated contrail detection
+
+Before contrails can be modelled, forecast or avoided, they have to be seen. Geostationary satellites image the same region every few minutes, day and night, but contrails are thin, often only a few pixels wide and easily confused with natural cirrus clouds. Labelling them by hand is slow and subjective, so automated detection is essential to study contrails at scale.
+
+<figure>
+  <img src="/figures/F04_automated_contrail_detection.png" alt="Pipeline from satellite infrared imagery, through a deep neural network, to georeferenced contrail masks" loading="lazy" />
+  <figcaption>From satellite infrared imagery to georeferenced contrail masks with deep neural networks (synthetic example).</figcaption>
+</figure>
+
+We train deep neural networks to segment contrails in satellite infrared imagery, using human-labelled datasets such as OpenContrails. Beyond accuracy, we focus on how far these models can be trusted: our work evaluates several architectures under a robust protocol, shows that, under tolerance-aware metrics, their performance is close to the attainable upper bound, and identifies systematic errors such as the overestimation of contrail width. The models are then adapted to Meteosat imagery to monitor European and North Atlantic airspace.
+
+The detection tools are openly available in the ContrAI repository. Current work extends them to multi-sensor detection, adding ground-based cameras and additional satellites.
+
+## Observation-based climate impact
+
+How much do contrails actually warm the planet? Contrails reflect incoming sunlight, which cools, and trap heat radiated by the Earth, which warms. The balance depends on the time of day, the season, the surface underneath and the optical properties of the ice cloud, and most current estimates still rely on models rather than on measurements.
+
+<figure>
+  <img src="/figures/F03_atmospheric_impact_analysis.png" alt="Schematic of a contrail reflecting sunlight and trapping outgoing longwave radiation, with the net effect changing sign through the day" loading="lazy" />
+  <figcaption>Contrails reflect sunlight (cooling) and trap outgoing heat (warming). The net effect changes sign along the day, which is why timing matters (schematic).</figcaption>
+</figure>
+
+By combining AI-based contrail detection in Meteosat geostationary imagery with satellite retrievals of cloud properties and radiative transfer calculations, we have characterised the contrails observed over Europe and the North Atlantic throughout 2023. Contrail coverage does not simply follow traffic: it peaks in spring and drops by 37% in summer, even though cruise traffic is 16% higher. Detected contrails cool slightly during the day (−1.4 W/m² on average) but warm strongly at night (+32.7 W/m²), giving an annual mean net warming of about 2.85 mW/m² over the region, roughly 78% of it over Atlantic waters.
+
+## From observation to policy
+
+Since 2025, European airlines must monitor, report and verify (MRV) the non-CO₂ effects of their flights. Together with the flight planning provider Flightkeys, we have analysed the feasibility of contrail avoidance in a commercial flight planning system and proposed an equitable MRV framework that compares three trajectories per flight: the cost-optimal plan, the contrail-optimal plan and the flight actually flown. This allows genuine mitigation efforts to be told apart from inaction.
+
+## Key references
+
+- Ortiz, I., García-Heras, J., Jafarimoghaddam, A., Soler, M. (2025). Robust Evaluation of Neural Networks Trained on the OpenContrails Dataset. *IEEE Transactions on Geoscience and Remote Sensing*, 63, 4112717. [doi:10.1109/TGRS.2025.3629628](https://doi.org/10.1109/TGRS.2025.3629628)
+- Ortiz, I., Dimitropoulou, E., de Buyl, P., Clerbaux, N., García-Heras, J., van Gent, J., Brenot, H., Soler, M. (2026). Satellite-observed contrail coverage over Europe and the North Atlantic in 2023. Submitted to *Atmospheric Measurement Techniques* (preprint).
+- Ortiz, I., et al. (2024). Satellite-Based Quantification of Contrail Radiative Forcing over Europe: A Two-Week Analysis of Aviation-Induced Climate Effects. *SESAR Innovation Days 2024*. [arXiv:2409.10166](https://arxiv.org/abs/2409.10166)
+- Martín Frías, A., Houston, L. J. H., Zopp, R., Soler, M. (2026). Equitable Non-CO₂ Monitoring, Reporting and Verification Framework for Airline Contrail Mitigation. *Transportation Research Part A* (accepted). [doi:10.2139/ssrn.6179589](https://doi.org/10.2139/ssrn.6179589)
+- Martín Frías, A., et al. (2024). Feasibility of contrail avoidance in a commercial flight planning system: an operational analysis. *Environmental Research: Infrastructure and Sustainability*. [doi:10.1088/2634-4505/ad310c](https://doi.org/10.1088/2634-4505/ad310c)

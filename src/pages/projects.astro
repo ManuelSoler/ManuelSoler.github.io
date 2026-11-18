@@ -1,0 +1,178 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { bandStyle } from '../lib/band';
+import { ongoing, completedAsPI, completedAsResearcher, type Project } from '../data/projects';
+
+const groups: { id: string; label: string; items: Project[] }[] = [
+  { id: 'completed-pi', label: 'Completed projects as principal investigator', items: completedAsPI },
+  { id: 'completed-researcher', label: 'Completed projects as researcher', items: completedAsResearcher },
+];
+---
+
+<Base title="Projects" description="Competitive research projects led by or involving Manuel Soler.">
+  <section class="pband" style={await bandStyle('wing')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Projects</p>
+      <h1>Research projects</h1>
+      <p class="pband__lead">
+        Competitive projects funded by SESAR, Horizon Europe, the Spanish National R&amp;D Plan and other programmes,
+        most of them on aviation, weather and climate.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page">
+    <section class="block">
+      <h2 id="ongoing">Ongoing projects <span class="count">{ongoing.length}</span></h2>
+      <ul class="pcards">
+        {
+          ongoing.map((p) => (
+            <li>
+              <article class="pcard">
+                {p.logo && (
+                  <div class="pcard__art">
+                    <Image src={p.logo} alt="" width={640} />
+                  </div>
+                )}
+                <div class="pcard__body">
+                  <h3>{p.url ? <a href={p.url}>{p.name}</a> : p.name}</h3>
+                  {p.role && <span class="tag">{p.role}</span>}
+                  <p>{p.title}</p>
+                  <span class="card__meta">
+                    {p.funding}
+                    {p.period && ` · ${p.period}`}
+                  </span>
+                </div>
+              </article>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    {
+      groups.map((g) => (
+        <section class="block">
+          <h2 id={g.id}>
+            {g.label} <span class="count">{g.items.length}</span>
+          </h2>
+          <ul class="rows prow">
+            {g.items.map((p) => (
+              <li>
+                <span class="rows__label">{p.period ?? ''}</span>
+                <div>
+                  <div class="rows__title">
+                    {p.url ? <a href={p.url}>{p.name}</a> : p.name}
+                    {p.role && <span class="tag">{p.role}</span>}
+                  </div>
+                  <div class="rows__meta">
+                    {p.title} <em>{p.funding}</em>
+                  </div>
+                </div>
+                {p.logo ? (
+                  <div class="prow__logo">
+                    <Image src={p.logo} alt={`${p.name} and funder logos`} width={440} />
+                  </div>
+                ) : (
+                  <span />
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .pcards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+  }
+  .pcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--soft);
+    border-top: 3px solid var(--blue);
+    overflow: hidden;
+  }
+  /* Project image with its funder logos, faded into the card. */
+  .pcard__art {
+    position: relative;
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+  }
+  .pcard__art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.62;
+    transition: opacity 0.25s;
+  }
+  .pcard__art::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(244, 245, 248, 0) 45%, var(--soft) 100%);
+  }
+  .pcard:hover .pcard__art img {
+    opacity: 1;
+  }
+  .pcard__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    padding: 4px 24px 24px;
+  }
+  .pcard h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  .pcard h3 a {
+    text-decoration: none;
+  }
+  .pcard h3 a:hover {
+    text-decoration: underline;
+  }
+  .pcard .tag {
+    margin: 0 0 12px;
+  }
+  .pcard p {
+    font-size: 0.98rem;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .prow > li {
+    grid-template-columns: 110px minmax(0, 1fr) 220px;
+    align-items: center;
+  }
+  .prow__logo img {
+    width: 100%;
+    mix-blend-mode: multiply;
+    opacity: 0.5;
+    filter: saturate(0.7);
+    transition: opacity 0.25s, filter 0.25s;
+  }
+  .prow > li:hover .prow__logo img {
+    opacity: 1;
+    filter: none;
+  }
+  @media (max-width: 760px) {
+    .prow > li {
+      grid-template-columns: 1fr;
+    }
+    .prow__logo {
+      max-width: 240px;
+    }
+  }
+</style>

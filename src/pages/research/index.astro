@@ -1,0 +1,44 @@
+---
+import { bandStyle } from '../../lib/band';
+import Base from '../../layouts/Base.astro';
+import ResearchCards from '../../components/ResearchCards.astro';
+import { site } from '../../lib/site';
+---
+
+<Base
+  title="Research"
+  description="Active research lines of Manuel Soler: contrail observation, contrail modelling and climate-optimized aircraft trajectories."
+>
+  <section class="pband" style={await bandStyle('sky')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Research</p>
+      <h1>Contrails, climate and the way aircraft fly</h1>
+      <p class="pband__lead">
+        Aviation warms the planet through CO₂ and, to a similar or larger extent, through contrails and other non-CO₂
+        effects. My current work follows the problem end to end: observing contrails, modelling them, and optimising
+        trajectories to avoid the ones that matter.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <ResearchCards />
+      <p class="lab-note">
+        This research is carried out with the team of the <a href={site.labUrl}>{site.labName}</a> at UC3M, where the
+        group's wider activity in AI for aviation, trajectory optimisation and sustainable aviation technologies is
+        described.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lab-note {
+    margin: 44px 0 0;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    max-width: 75ch;
+    color: var(--muted);
+  }
+</style>

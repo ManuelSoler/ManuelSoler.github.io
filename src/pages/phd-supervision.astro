@@ -1,0 +1,92 @@
+---
+import { bandStyle } from '../lib/band';
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+import { ongoingTheses, completedTheses, type Thesis } from '../data/theses';
+
+const groups: { id: string; label: string; items: Thesis[] }[] = [
+  { id: 'ongoing', label: 'Theses under supervision', items: ongoingTheses },
+  { id: 'completed', label: 'Supervised theses', items: completedTheses },
+];
+---
+
+<Base title="PhD supervision" description="Doctoral theses supervised by Manuel Soler.">
+  <section class="pband" style={await bandStyle('apron', 'center 20%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">PhD supervision</p>
+      <h1>Doctoral theses</h1>
+      <p class="pband__lead">
+        Theses I supervise or have supervised, most of them within the{' '}
+        <a href={site.phdProgramme}>PhD Programme in Aerospace Engineering</a> at UC3M, which I direct. Open positions
+        are announced on the <a href={`${site.labUrl}openings/`}>Lab's openings page</a>.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page page--narrow">
+    {
+      groups.map((g) => (
+        <section class="block">
+          <h2 id={g.id}>
+            {g.label} <span class="count">{g.items.length}</span>
+          </h2>
+          <ul class="theses">
+            {g.items.map((t) => (
+              <li>
+                <p class="theses__name">{t.url ? <a href={t.url}>{t.name}</a> : t.name}</p>
+                <p class="theses__title">{t.title}</p>
+                <p class="theses__meta">
+                  Supervisors: {t.supervisors}. {t.programme}.{t.note && ` ${t.note}`}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .pband__lead a {
+    color: #fff;
+  }
+  .theses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+  }
+  .theses li {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .theses p {
+    margin: 0;
+  }
+  .theses__name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+  .theses__name a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .theses__name a:hover {
+    text-decoration: underline;
+  }
+  .theses__title {
+    font-family: var(--title);
+    font-size: 1.25rem;
+    line-height: 1.3;
+    color: var(--head);
+    margin: 6px 0 8px !important;
+  }
+  .theses__meta {
+    color: var(--muted);
+    font-size: 0.96rem;
+  }
+</style>

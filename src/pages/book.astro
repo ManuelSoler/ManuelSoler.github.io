@@ -1,0 +1,175 @@
+---
+import { bandStyle } from '../lib/band';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import fund1 from '../assets/covers/fundamentals-1ed.png';
+import fund2 from '../assets/covers/fundamentals-2ed.png';
+import airport from '../assets/covers/airport-engineering.jpg';
+import astro from '../assets/covers/astropatrulla.png';
+import thesis from '../assets/covers/phd-thesis.jpg';
+
+const books = [
+  {
+    id: 'la-astropatrulla-basurilla',
+    cover: astro,
+    title: 'La Astropatrulla Basurilla',
+    subtitle: 'Cuento infantil · ilustraciones de Mamen Moreu (2025)',
+    text: 'El Comandante Pablo y su tripulación, Hipo, Tritops y Calameona, construyen su propio cohete para limpiar la basura que flota en el espacio. Una historia cómica y divulgativa para despertar la pasión por la ciencia. Las versiones digitales son de libre acceso, y un tercio de los derechos de autor de las copias impresas se destina a actividades STEAM en colegios.',
+    meta: 'ISBN 9798304796811',
+    links: [
+      { label: 'Más información y descargas', url: '/book/la-astropatrulla-basurilla/' },
+      { label: 'Copia impresa', url: 'https://www.amazon.es/dp/B0F23TGX1S' },
+    ],
+  },
+  {
+    id: 'fundamentals-2ed',
+    cover: fund2,
+    title: 'Fundamentals of Aerospace Engineering',
+    subtitle: 'An introductory course to aeronautical engineering · 2nd edition (2017)',
+    text: 'An open textbook for a first course in aerospace engineering, covering aircraft, aerodynamics, structures, propulsion, flight mechanics, air transport, airports and air navigation.',
+    meta: 'ISBN 978-19-744573-4-5 · CC BY-SA',
+    links: [
+      {
+        label: 'Download PDF',
+        url: 'https://www.dropbox.com/s/di6j7z41uszemiv/Fund_Aerospace_Engineering_2_Ed_e_Version.pdf?dl=0',
+      },
+      { label: 'Printed copy', url: 'https://www.amazon.com/dp/197442734X' },
+    ],
+  },
+  {
+    id: 'fundamentals-1ed',
+    cover: fund1,
+    title: 'Fundamentals of Aerospace Engineering',
+    subtitle: '1st edition (2014)',
+    text: 'The original edition of the open textbook.',
+    meta: 'ISBN 978-14-937277-5-9 · CC BY-NC-SA',
+    links: [
+      {
+        label: 'Download PDF',
+        url: 'https://www.dropbox.com/s/v4z67jdk0qbjyl3/Fundamentals%20of%20aerospace%20engineering%20-%20Manuel%20Soler.pdf',
+      },
+      { label: 'Printed copy', url: 'https://www.amazon.com/dp/1493727753' },
+    ],
+  },
+  {
+    id: 'airport-engineering',
+    cover: airport,
+    title: 'Lecture Notes on Airport Engineering',
+    subtitle: 'Undergraduate lecture notes',
+    text: 'A brief undergraduate introduction to airport engineering: airport planning, airport configuration, airport operations and aircraft characteristics related to airport planning, with a collection of exercises.',
+    meta: 'CC BY-SA',
+    links: [
+      { label: 'Download PDF', url: 'https://www.dropbox.com/s/kuolty0q8fp63lx/Lecture_notes_Airport_Engineering.pdf?dl=0' },
+      { label: 'Printed copy', url: 'https://www.amazon.co.uk/dp/B0863V2HTT' },
+    ],
+  },
+  {
+    id: 'phd-thesis',
+    cover: thesis,
+    title: 'Commercial Aircraft Trajectory Planning based on Multiphase Mixed-Integer Optimal Control',
+    subtitle: 'PhD thesis · OMM Editorial (2013)',
+    text: 'My doctoral thesis, published as a book.',
+    meta: 'ISBN 978-84-941248-1-5 · CC BY-NC-SA 3.0',
+    links: [{ label: 'Download PDF', url: '/wp-content/uploads/2013/12/M_Soler_PhD_Thesis_ecopy.pdf' }],
+  },
+];
+---
+
+<Base title="Books" description="Open textbooks, lecture notes and a children's book by Manuel Soler.">
+  <section class="pband" style={await bandStyle('contrails', 'center 70%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Books</p>
+      <h1>Books and lecture notes</h1>
+      <p class="pband__lead">
+        Open-access textbooks written for my courses, and a children's book born from outreach activities in schools.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page">
+    <ul class="books">
+      {
+        books.map((b) => (
+          <li id={b.id}>
+            <div class="books__cover">
+              <Image src={b.cover} alt={`Cover of ${b.title}`} width={300} />
+            </div>
+            <div>
+              <h2>{b.title}</h2>
+              <p class="books__sub">{b.subtitle}</p>
+              <p>{b.text}</p>
+              <p class="books__meta">{b.meta}</p>
+              <div class="books__links">
+                {b.links.map((l, i) => (
+                  <a class:list={['btn', i > 0 && 'btn--ghost']} href={l.url}>
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .books {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .books li {
+    display: grid;
+    grid-template-columns: 200px minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 48px);
+    padding: clamp(28px, 4vw, 44px) 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 90px;
+  }
+  .books li:first-child {
+    padding-top: 0;
+  }
+  .books__cover img {
+    width: 100%;
+    border: 1px solid var(--line);
+    box-shadow: 0 12px 28px rgba(11, 12, 42, 0.14);
+  }
+  .books h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+  }
+  .books__sub {
+    margin: 8px 0 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+  .books p {
+    max-width: 68ch;
+  }
+  .books__meta {
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+  .books__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+  }
+  .books__links .btn {
+    padding: 10px 20px;
+    font-size: 0.95rem;
+  }
+  @media (max-width: 640px) {
+    .books li {
+      grid-template-columns: 1fr;
+    }
+    .books__cover {
+      max-width: 180px;
+    }
+  }
+</style>

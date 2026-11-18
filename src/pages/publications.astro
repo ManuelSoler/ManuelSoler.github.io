@@ -1,0 +1,75 @@
+---
+import { bandStyle } from '../lib/band';
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+import { getPublications, formatAuthors } from '../lib/orcid';
+
+const groups = await getPublications();
+const total = groups.reduce((n, g) => n + g.works.length, 0);
+---
+
+<Base title="Publications" description="Journal articles, conference papers, books and preprints by Manuel Soler.">
+  <section class="pband" style={await bandStyle('contrails', 'center 30%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Publications</p>
+      <h1>Publications</h1>
+      <p class="pband__lead">
+        {total > 0 ? `${total} works, ` : 'Works '}listed automatically from my{' '}
+        <a href={site.orcid}>ORCID record</a>. Books and lecture notes are on the <a href="/book/">Books</a> page.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page page--narrow">
+    {
+      groups.length === 0 ? (
+        <p>
+          The publication list could not be loaded right now. It is available on <a href={site.orcid}>ORCID</a> and{' '}
+          <a href={site.scopus}>Scopus</a>.
+        </p>
+      ) : (
+        <>
+          <ul class="anchors">
+            {groups.map((g) => (
+              <li>
+                <a href={`#${g.id}`}>
+                  {g.label} ({g.works.length})
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {groups.map((g) => (
+            <section class="block">
+              <h2 id={g.id}>
+                {g.label}
+                <span class="count">{g.works.length}</span>
+              </h2>
+              <ol class="rows">
+                {g.works.map((w) => (
+                  <li>
+                    <span class="rows__label">{w.year ?? '—'}</span>
+                    <div>
+                      <div class="rows__title">{w.url ? <a href={w.url}>{w.title}</a> : w.title}</div>
+                      <div class="rows__meta">
+                        {formatAuthors(w.authors)}
+                        {w.authors.length > 0 && w.venue && '. '}
+                        {w.venue && <em>{w.venue}</em>}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ))}
+        </>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .pband__lead a {
+    color: #fff;
+  }
+</style>

@@ -1,0 +1,236 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import { bandStyle } from '../../lib/band';
+import cover from '../../assets/covers/astropatrulla.png';
+import portada from '../../assets/covers/astro-portada.png';
+import patrulla from '../../assets/covers/astro-patrulla.png';
+import cohete from '../../assets/covers/astro-cohete.png';
+import parche from '../../assets/covers/astro-parche.png';
+
+const files = '/wp-content/uploads/2025/03';
+const gallery = [
+  { src: portada, alt: 'Portada del libro' },
+  { src: patrulla, alt: 'La Astropatrulla' },
+  { src: cohete, alt: 'Plano del cohete de agua' },
+  { src: parche, alt: 'El parche de la misión' },
+];
+---
+
+<Base
+  title="La Astropatrulla Basurilla"
+  description="Cuento infantil de Manuel Soler Arnedo ilustrado por Mamen Moreu: una misión espacial para limpiar la basura que flota en órbita."
+  lang="es"
+>
+  <section class="pband" style={await bandStyle('contrails', 'center 70%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow"><a href="/book/">Books</a> · Cuento infantil</p>
+      <h1>La Astropatrulla Basurilla</h1>
+      <p class="pband__lead">¿Listos para una aventura espacial llena de risas y descubrimientos?</p>
+    </div>
+  </section>
+
+  <div class="wrap page">
+    <section class="intro">
+      <div class="intro__cover">
+        <Image src={cover} alt="Cubierta de La Astropatrulla Basurilla" width={420} />
+      </div>
+      <div>
+        <p class="lead">
+          El Comandante Pablo y su alocada tripulación, Hipo, Tritops y Calameona, deciden construir su propio cohete
+          y orbitar el planeta Tierra para enfrentarse a un reto cósmico: limpiar la basura que flota en el espacio.
+        </p>
+        <p>
+          Juntos forman la Astropatrulla Basurilla y, entre malentendidos y datos curiosos sobre el universo,
+          demostrarán que la imaginación, el trabajo en equipo y el ingenio pueden llevarnos muy lejos.
+        </p>
+        <p>
+          Con un tono cómico y divulgativo, esta historia busca despertar la pasión por la ciencia en los jóvenes
+          lectores, al tiempo que conciencia sobre un problema real y cada vez más urgente: la acumulación de desechos
+          en nuestra órbita. Prepárate para despegar y unirte a la misión más ecológica (y divertida) del cosmos.
+        </p>
+        <p class="meta">
+          Texto: Manuel Soler Arnedo · Ilustraciones: Mamen Moreu · 2025 · ISBN (versión impresa) 9798304796811
+        </p>
+        <div class="links">
+          <a class="btn" href={`${files}/La_Astropatrulla_Basurilla.pdf`}>Descargar PDF</a>
+          <a class="btn btn--ghost" href={`${files}/La_Astropatrulla_Basurilla_Complete_Compressed.epub_.zip`}>
+            Descargar EPUB
+          </a>
+          <a class="btn btn--ghost" href="https://www.amazon.es/dp/B0F23TGX1S">Copia impresa</a>
+        </div>
+        <p class="note">Las versiones en PDF y EPUB se ofrecen de forma gratuita y en libre acceso.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 id="galeria">Galería</h2>
+      <ul class="gallery">
+        {
+          gallery.map((g) => (
+            <li>
+              <Image src={g.src} alt={g.alt} width={520} />
+              <span>{g.alt}</span>
+            </li>
+          ))
+        }
+      </ul>
+      <video class="video" controls preload="metadata" playsinline>
+        <source src={`${files}/Video_Lanzamiento_1.mp4`} type="video/mp4" />
+      </video>
+    </section>
+
+    <div class="cols">
+      <section class="block">
+        <h2 id="autores">Autor e ilustradora</h2>
+        <p>
+          <strong>Manuel Soler Arnedo</strong> nació en Alcañiz en 1982. Es profesor en el departamento de Ingeniería
+          Aeroespacial de la Universidad Carlos III de Madrid, donde desarrolla una intensa actividad investigadora y
+          de divulgación en temas relacionados con la aviación y el espacio. La Astropatrulla Basurilla incluye
+          elementos de actividades que programa en la Semana de la Ciencia y la Noche de los Investigadores, por
+          ejemplo la construcción y el lanzamiento de cohetes de agua. El cuento, además, aborda temas de interés
+          investigador, como es la retirada de basura espacial. Además de profesor, investigador y divulgador, Manuel
+          es escritor. Ha publicado varios relatos en compendios de cuentos, en medios digitales como Zenda y en
+          podcasts como Noviembre Nocturno. En 2022 publicó su primer cuento infantil, La que Luce, en la editorial
+          Peonza.
+        </p>
+        <p>
+          <strong>Mamen Moreu</strong> (Huesca, 1985). Desde muy pequeña, lo que más le gustaba en el mundo era
+          dibujar y contar historias, y de mayor lo convirtió en su trabajo. Dibujante de cómics e historietista, su
+          estilo se caracteriza por ser divertido y colorido, amante de la ilustración infantil y del cómic de humor,
+          social y reivindicativo. Publicó sus primeras páginas en la revista satírica El Jueves en 2009, donde sigue a
+          día de hoy. Tiene publicados varios cómics en la editorial Astiberri, como Resaca (2014) y Desastre (2018), y
+          ha recibido varios premios a nivel nacional. También ha realizado viñetas e ilustraciones en Diario El Salto,
+          Pikara Magazine y Xabiroi, entre otros. Compagina su trabajo de guionista y dibujante de cómics con encargos
+          de ilustración, charlas sobre cómic y talleres infantiles, juveniles y para adultos. Su web es{' '}
+          <a href="https://www.mamenmoreu.com">mamenmoreu.com</a>.
+        </p>
+      </section>
+
+      <div>
+        <section class="block">
+          <h2 id="colaborar">Colaborando</h2>
+          <p>
+            Escribir e ilustrar «La Astropatrulla Basurilla» ha sido una labor a la vez grata y ardua. Aun así, el
+            libro se ofrece en libre acceso a la comunidad en sus versiones digitales. Si quieres colaborar con el
+            autor y la ilustradora, puedes adquirir copias impresas a un coste reducido en Amazon.
+          </p>
+          <p>
+            Una tercera parte de los ingresos derivados de los derechos de autor de las copias físicas irá destinada a
+            actividades STEAM (Science, Technology, Engineering, Arts, Mathematics) en colegios de educación infantil
+            y primaria.
+          </p>
+        </section>
+
+        <section class="block">
+          <h2 id="talleres">En los colegios</h2>
+          <p>
+            El cuento acompaña al taller de construcción y lanzamiento de cohetes de agua que llevo a colegios, a la
+            Semana de la Ciencia y a ferias de divulgación. Las actividades realizadas están en la página de{' '}
+            <a href="/outreach/">Outreach</a>.
+          </p>
+        </section>
+
+        <section class="block">
+          <h2 id="licencia">Licencia</h2>
+          <p class="small">
+            © 2025 del texto: Manuel Soler Arnedo. © 2025 de las ilustraciones: Mamen Moreu. Todos los derechos
+            reservados. Prohibida la reproducción total o parcial de este libro, su registro o transmisión en cualquier
+            forma o por cualquier medio sin la autorización previa por escrito del titular de los derechos de autor.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+    margin-bottom: clamp(44px, 6vw, 72px);
+  }
+  .intro__cover img {
+    width: 100%;
+    box-shadow: 0 18px 40px rgba(11, 12, 42, 0.22);
+  }
+  .lead {
+    font-size: clamp(1.25rem, 2.1vw, 1.5rem);
+    line-height: 1.4;
+    color: var(--head);
+  }
+  .intro p {
+    max-width: 66ch;
+  }
+  .meta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 22px 0 12px;
+  }
+  .note,
+  .small {
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+  .gallery {
+    list-style: none;
+    margin: 18px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .gallery li {
+    display: flex;
+    flex-direction: column;
+  }
+  .gallery img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    background: var(--soft);
+    border: 1px solid var(--line);
+  }
+  .gallery span {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .video {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    margin-top: 28px;
+    background: var(--night);
+  }
+  .cols {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(32px, 6vw, 80px);
+  }
+  .cols .block {
+    margin-bottom: 40px;
+  }
+  @media (max-width: 860px) {
+    .intro,
+    .cols {
+      grid-template-columns: 1fr;
+    }
+    .intro__cover {
+      max-width: 260px;
+    }
+    .gallery {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

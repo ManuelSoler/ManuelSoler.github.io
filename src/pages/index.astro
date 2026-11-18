@@ -1,0 +1,358 @@
+---
+import { getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ResearchCards from '../components/ResearchCards.astro';
+import { site } from '../lib/site';
+import { getLabNews } from '../lib/labNews';
+import heroSrc from '../assets/hero-contrails.jpg';
+
+// Re-encoding the photo also strips its camera metadata (EXIF/GPS).
+const hero = await getImage({ src: heroSrc, width: 2000, format: 'webp', quality: 72 });
+const heroSmall = await getImage({ src: heroSrc, width: 900, format: 'webp', quality: 70 });
+
+const news = await getLabNews();
+const [lead, ...rest] = news;
+const fmt = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const stats = [
+  { value: '17', label: 'Competitive projects as PI' },
+  { value: '4', label: 'European projects coordinated' },
+  { value: '17', label: 'PhD theses supervised' },
+  { value: '>60', label: 'Journal articles (JCR)' },
+];
+---
+
+<Base>
+  <section class="hero">
+    <picture>
+      <source media="(max-width: 700px)" srcset={heroSmall.src} />
+      <img class="hero__img" src={hero.src} alt="" fetchpriority="high" />
+    </picture>
+    <div class="wrap hero__in">
+      <p class="hero__eyebrow">{site.name} · {site.affiliation}</p>
+      <h1>Understanding and mitigating the climate impact of aviation</h1>
+      <div class="hero__cta">
+        <a class="btn btn--light" href="/research/">My research</a>
+        <a class="btn btn--outline-light" href={site.labUrl}>{site.labName}</a>
+      </div>
+    </div>
+    <p class="hero__caption"><span>In the picture</span> Persistent contrails at sunset</p>
+  </section>
+
+  <section class="section">
+    <div class="wrap about">
+      <div>
+        <p class="eyebrow">About</p>
+        <p class="about__lead">
+          I am Full Professor in the Department of Aerospace Engineering at Universidad Carlos III de Madrid, where I
+          lead the <a href={site.labUrl}>{site.labName}</a> and direct the{' '}
+          <a href={site.phdProgramme}>PhD Programme in Aerospace Engineering</a>.
+        </p>
+        <p>
+          My research combines optimal control, stochastic processes, meteorology and climate science, applied to
+          aviation. Over the past years it has focused on contrails and their climate impact: how to observe them, how
+          to model them, and how to plan flights that avoid them. I have been visiting scholar at ETH Zürich and UC
+          Berkeley, and visiting professor at MIT.
+        </p>
+      </div>
+      <dl class="stats">
+        {
+          stats.map((s) => (
+            <div>
+              <dd>{s.value}</dd>
+              <dt>{s.label}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Research</p>
+          <h2>Three active research lines</h2>
+          <p>From seeing contrails in satellite images to flying around the regions where they warm the most.</p>
+        </div>
+        <a class="arrow-link" href="/research/">All research</a>
+      </div>
+      <ResearchCards />
+    </div>
+  </section>
+
+  <section class="highlight">
+    <div class="wrap highlight__in">
+      <p class="highlight__label">Recognition</p>
+      <p class="highlight__text">Spain's National Champion of the 2026 Frontiers Planet Prize</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">{site.labName}</p>
+          <h2>News from the Lab</h2>
+        </div>
+        <a class="arrow-link" href={site.labNewsUrl}>All news</a>
+      </div>
+
+      {
+        lead ? (
+          <div class="news">
+            <article class="news__lead">
+              <time datetime={lead.date.toISOString()}>{fmt.format(lead.date)}</time>
+              <h3>
+                <a href={lead.url}>{lead.title}</a>
+              </h3>
+              <p>{lead.excerpt}</p>
+              <a class="arrow-link" href={lead.url}>
+                Read the story
+              </a>
+            </article>
+            <ul class="news__list">
+              {rest.map((item) => (
+                <li>
+                  <time datetime={item.date.toISOString()}>{fmt.format(item.date)}</time>
+                  <a href={item.url}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p class="news__empty">
+            The latest news is published on the <a href={site.labNewsUrl}>{site.labName} website</a>.
+          </p>
+        )
+      }
+
+      <div class="follow">
+        <p>Day-to-day updates from the group are posted on LinkedIn.</p>
+        <a class="btn btn--ghost" href={site.labLinkedIn}>Follow the Lab on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: min(78vh, 720px);
+    display: flex;
+    align-items: flex-end;
+    background: var(--night);
+    color: #fff;
+    overflow: hidden;
+  }
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11, 12, 42, 0.25) 0%, rgba(11, 12, 42, 0.45) 45%, rgba(11, 12, 42, 0.88) 100%);
+  }
+  .hero__in {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding-top: 120px;
+    padding-bottom: clamp(64px, 9vw, 104px);
+  }
+  .hero__eyebrow {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-2);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    color: #fff;
+    font-size: clamp(2.3rem, 5.6vw, 4.4rem);
+    line-height: 1.06;
+    max-width: 17ch;
+  }
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+  }
+  .hero__caption {
+    position: absolute;
+    z-index: 1;
+    right: var(--gutter);
+    bottom: 22px;
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .hero__caption span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-2);
+    margin-right: 10px;
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(32px, 6vw, 88px);
+    align-items: start;
+  }
+  .about__lead {
+    font-size: clamp(1.3rem, 2.2vw, 1.65rem);
+    line-height: 1.4;
+    color: var(--head);
+  }
+  .about p:not(.about__lead):not(.eyebrow) {
+    color: var(--muted);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 32px;
+    margin: 0;
+  }
+  .stats > div {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--line);
+    padding: 20px 0 26px;
+  }
+  .stats dd {
+    margin: 0;
+    font-size: clamp(2.6rem, 4.6vw, 3.6rem);
+    line-height: 1;
+    color: var(--blue);
+    font-variant-numeric: tabular-nums;
+  }
+  .stats dt {
+    margin-top: 10px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .highlight {
+    background: var(--gold-3);
+    border-top: 1px solid var(--gold-2);
+    border-bottom: 1px solid var(--gold-2);
+  }
+  .highlight__in {
+    display: flex;
+    align-items: baseline;
+    gap: 14px 32px;
+    flex-wrap: wrap;
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+  .highlight__label {
+    margin: 0;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+  }
+  .highlight__text {
+    margin: 0;
+    font-family: var(--title);
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    color: var(--head);
+  }
+
+  .news {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+  }
+  .news time {
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+    margin-bottom: 8px;
+  }
+  .news__lead {
+    border-top: 3px solid var(--blue);
+    padding-top: 24px;
+  }
+  .news__lead h3 {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    margin-bottom: 14px;
+  }
+  .news__lead h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .news__lead h3 a:hover {
+    color: var(--blue);
+  }
+  .news__lead p {
+    color: var(--muted);
+  }
+  .news__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .news__list li {
+    border-top: 1px solid var(--line);
+    padding: 20px 0;
+  }
+  .news__list li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .news__list a {
+    color: var(--head);
+    font-size: 1.12rem;
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+  .news__list a:hover {
+    color: var(--blue);
+    text-decoration: underline;
+  }
+  .follow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px 32px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    padding: 26px 28px;
+    background: var(--blue-3);
+  }
+  .follow p {
+    margin: 0;
+    color: var(--head);
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 860px) {
+    .about,
+    .news {
+      grid-template-columns: 1fr;
+    }
+    .hero__caption {
+      display: none;
+    }
+  }
+</style>

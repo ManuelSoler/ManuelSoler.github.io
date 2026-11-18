@@ -1,0 +1,110 @@
+---
+import { bandStyle } from '../lib/band';
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+
+const libraries = [
+  {
+    name: 'ContrAI',
+    tag: 'Contrail detection',
+    text: 'A framework for contrail detection with the neural network models evaluated in our research: access satellite data, run inference on new imagery and export georeferenced outputs for visualisation and cross-validation. Under active development.',
+    url: 'https://aircraftoperationslab.com/2026/01/16/contrai/',
+  },
+  {
+    name: 'ROOST',
+    tag: 'Flight planning · structured airspace',
+    text: 'Robust flight planning within the currently structured airspace. It integrates horizontal and vertical decision-making, covers climb, cruise and descent, runs fast thanks to GPU parallelisation and accounts for uncertainty in meteorological variables, initial flight time and initial mass.',
+    url: 'https://aircraftoperationslab.com/roost/',
+  },
+  {
+    name: 'ROC',
+    tag: 'Flight planning · free-route airspace',
+    text: 'A Python library for robust flight planning under the free-routing airspace concept. It integrates horizontal and vertical decision-making, incorporates meteorological uncertainty and accepts a wide range of planning objectives.',
+    url: 'https://aircraftoperationslab.com/roc/',
+  },
+  {
+    name: 'CLIMaCCF',
+    tag: 'Climate impact · with DLR',
+    text: 'An easy-to-use tool that calculates the spatially and temporally resolved climate impact of aviation emissions with algorithmic climate change functions (aCCFs) for water vapour, NOₓ-induced ozone and methane, and contrail cirrus, individually or merged.',
+    url: 'https://aircraftoperationslab.com/climaccf/',
+  },
+];
+---
+
+<Base
+  title="Software and transfer"
+  description="Open-source libraries and the spin-off AI Methods, from the research of Manuel Soler and the Aircraft Operations Lab."
+>
+  <section class="pband" style={await bandStyle('sky', 'center 60%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Software &amp; transfer</p>
+      <h1>From papers to tools</h1>
+      <p class="pband__lead">
+        Research results released as open-source software, so that they are findable, accessible, interoperable and
+        reusable, and transferred to industry through a spin-off company.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page">
+    <section class="block">
+      <h2 id="open-source-libraries">Open-source libraries</h2>
+      <p class="block__intro">Developed with the team of the <a href={site.labUrl}>{site.labName}</a>.</p>
+      <ul class="cards">
+        {
+          libraries.map((l) => (
+            <li>
+              <div class="card">
+                <h3>
+                  <a href={l.url}>{l.name}</a>
+                </h3>
+                <p>{l.text}</p>
+                <span class="card__meta">{l.tag}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="block spin">
+      <div>
+        <p class="eyebrow">Spin-off</p>
+        <h2 id="spin-off">AI Methods</h2>
+        <p>
+          AI Methods is a start-up born from a research project at UC3M, which I co-founded. It uses artificial
+          intelligence to help organisations, companies and aviation professionals improve their decision-making by
+          accessing the best possible weather information.
+        </p>
+        <p>
+          The company was selected for the first edition of the ENAIRE start-up accelerator (2023) and for the ESA BIC
+          incubator programme (2024).
+        </p>
+        <div class="spin__links">
+          <a class="btn" href={site.spinOff}>Visit AI Methods</a>
+          <a class="btn btn--ghost" href="https://www.youtube.com/watch?v=lA6EsjR3dVk">Watch the video</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .spin {
+    padding: clamp(28px, 4vw, 48px);
+    background: var(--blue-3);
+  }
+  .spin h2 {
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+    margin-bottom: 16px;
+  }
+  .spin p {
+    max-width: 68ch;
+  }
+  .spin__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+  }
+</style>

@@ -1,0 +1,379 @@
+---
+import { bandStyle } from '../lib/band';
+import Base from '../layouts/Base.astro';
+import { site } from '../lib/site';
+
+const awards = [
+  {
+    year: '2026',
+    title: '1st Prize, VI Margarita Salas Awards',
+    text: 'Awarded to research of the Aircraft Operations Lab.',
+    url: 'https://aircraftoperationslab.com/news/',
+  },
+  {
+    year: '2026',
+    title: 'UC3M Excellence Award (2025 edition)',
+    text: 'Recognised at the UC3M Excellence Awards, together with Andrea Ianiro.',
+    url: 'https://aircraftoperationslab.com/news/',
+  },
+  {
+    year: '2026',
+    title: 'Frontiers Planet Prize: National Champion of Spain and international finalist',
+    text: 'For Simorgh and Soler (2025). A global competition by the Frontiers Research Foundation that rewards research offering scalable solutions to keep Earth within its safe operating space.',
+  },
+  {
+    year: '2024',
+    title: 'ESA BIC incubator programme',
+    text: 'For the spin-off AI Methods.',
+  },
+  {
+    year: '2023',
+    title: 'Luis Azcárraga Award, Fundación ENAIRE',
+    text: 'National award for Baneshi, Simorgh and Soler, “Conflict Assessment and Resolution of Climate Optimal Aircraft Trajectories at Network Scale”, Transportation Research Part D, 2023.',
+    url: 'https://fundacionenaire.es/actividad/xxviii-premios-aeronauticos-fundacion-enaire/',
+  },
+  {
+    year: '2023',
+    title: 'ENAIRE start-up accelerator',
+    text: 'AI Methods selected in the first edition of the ENAIRE acceleration programme for start-ups.',
+    url: 'https://aceleradora.enaireopeninnovation.com/en/',
+  },
+  {
+    year: '2023',
+    title: 'Digital Sky Award, best Exploratory Research project',
+    text: 'For the ISOBAR project: a storm forecaster tailored to air traffic management and a user-driven mitigation plan.',
+  },
+  {
+    year: '2021',
+    title: 'SESAR JU Sustainability Award',
+    text: 'For the FlyATM4E project, on climate-optimised aircraft trajectories considering CO₂ and non-CO₂ effects.',
+    url: 'https://www.sesarju.eu/awards2021',
+  },
+  {
+    year: '2021',
+    title: 'UC3M TFM Emprende Award, 1st position',
+    text: 'As mentor.',
+  },
+  {
+    year: '2019',
+    title: 'Luis Azcárraga Award, Fundación ENAIRE',
+    text: 'National award for González-Arribas, Soler et al. (2018).',
+    url: 'https://fundacionenaire.es/actividad/xxiv-premios-aeronauticos-fundacion-enaire/',
+  },
+  {
+    year: '2019',
+    title: 'UC3M TFG Emprende Award, 1st position',
+    text: 'As mentor.',
+  },
+  {
+    year: '2016',
+    title: 'Luis Azcárraga Award, Fundación ENAIRE',
+    text: 'National award for Soler, Olivares et al. (2015).',
+  },
+  {
+    year: '2013',
+    title: 'SESAR Young Scientist Award',
+    text: 'European award by the SESAR Joint Undertaking, “for its innovative modeling and interdisciplinary solution approach to the trajectory modeling problem, as well as strong engagement with European Research Centres and the USA”.',
+    url: 'https://www.sesarju.eu/YSA',
+  },
+];
+
+const talks = [
+  {
+    year: '2023',
+    title: 'Sustainable Skies Conference: Contrails in Focus (Eurocontrol)',
+    text: 'Invited speaker. Two-day event bringing together scientists, industry and policy makers on contrails and contrail-induced cirrus.',
+    url: 'https://www.eurocontrol.int/event/sustainable-skies-conference-contrails-focus',
+  },
+  {
+    year: '2022',
+    title: 'ICRAT scientific committee',
+    text: 'Appointed to the scientific committee of the International Conference for Research in Air Transportation.',
+  },
+  {
+    year: '2022',
+    title: 'SESAR Innovation Days',
+    text: 'Invited panellist, “Aviation and climate change”.',
+  },
+  {
+    year: '2021',
+    title: 'World Meteorological Conference',
+    text: 'Invited panellist, “Meteorology and aviation”.',
+  },
+  {
+    year: '2018–20',
+    title: 'Engage, the SESAR Knowledge Transfer Network',
+    text: 'Lead of the thematic challenge “Efficient provision and use of meteorological information in ATM”.',
+  },
+];
+const interests = [
+  'Aviation climate impact and contrails',
+  'Climate-optimal aircraft trajectory optimisation',
+  'Optimal control',
+  'AI for aviation weather',
+  'Air traffic management',
+];
+
+const profiles: { label: string; url: string; note?: string }[] = [
+  { label: 'ORCID', url: site.orcid, note: '0000-0002-4664-1693' },
+  { label: 'Scopus', url: site.scopus, note: '36161339100' },
+  { label: 'Web of Science', url: 'https://www.webofscience.com/wos/author/rid/I-4656-2019', note: 'I-4656-2019' },
+  { label: 'LinkedIn', url: 'https://www.linkedin.com/in/manuel-soler-32716335' },
+  { label: site.labName, url: site.labUrl },
+];
+
+const highlights = [
+  {
+    label: 'Prize',
+    title: 'Spain’s National Champion, 2026 Frontiers Planet Prize',
+    text: 'For “Climate-optimized flight planning can effectively reduce the environmental footprint of aviation in Europe at low operational costs”, Communications Earth & Environment (2025), with Abolfazl Simorgh.',
+    url: 'https://doi.org/10.1038/s43247-025-02031-8',
+  },
+  {
+    label: 'Projects',
+    title: 'Coordinator of four European projects',
+    text: 'ALARM, START, E-CONTRAIL and E-CONTRAIL 2, within the SESAR programme.',
+    url: '/projects/',
+  },
+  {
+    label: 'Software',
+    title: 'Open-source libraries: CLIMaCCF, ROC, ROOST and ContrAI',
+    text: 'Research tools for climate-impact assessment, robust flight planning and contrail detection.',
+    url: '/software/',
+  },
+  {
+    label: 'Transfer',
+    title: 'Co-founder of the spin-off AI Methods',
+    text: 'Artificial intelligence for aviation weather, selected for the ENAIRE accelerator and the ESA BIC incubator.',
+    url: site.spinOff,
+  },
+];
+
+const positions = [
+  {
+    label: '2014–',
+    title: 'Universidad Carlos III de Madrid',
+    text: 'Department of Aerospace Engineering. Full Professor, head of the Aircraft Operations Lab and Director of the PhD Programme in Aerospace Engineering.',
+  },
+  {
+    label: '2008–13',
+    title: 'Universidad Rey Juan Carlos',
+    text: 'Lecturer in the degree of Aerospace Engineering in Air Navigation.',
+  },
+  {
+    label: 'Visiting',
+    title: 'ETH Zürich, UC Berkeley and MIT',
+    text: 'Visiting scholar at ETH Zürich and UC Berkeley; visiting professor at MIT.',
+  },
+  {
+    label: '2013',
+    title: 'PhD in Aerospace Engineering, Universidad Rey Juan Carlos',
+    text: 'Thesis: Commercial Aircraft Trajectory Planning based on Multiphase Mixed-Integer Optimal Control. SESAR Young Scientist Award 2013.',
+  },
+  {
+    label: '2007',
+    title: 'MSc in Aerospace Engineering, Universidad Politécnica de Madrid',
+    text: '',
+  },
+];
+---
+
+<Base title="CV" description="Curriculum vitae of Manuel Soler: profile, positions, education, awards and invited talks.">
+  <section class="pband" style={await bandStyle('contrails', 'center 45%')}>
+    <div class="wrap">
+      <p class="pband__eyebrow">Curriculum vitae</p>
+      <h1>{site.name}</h1>
+      <p class="pband__lead">
+        {site.role} at {site.affiliation}. Head of the {site.labName} and Director of the PhD Programme in Aerospace
+        Engineering.
+      </p>
+    </div>
+  </section>
+
+  <div class="wrap page cv">
+    <aside class="cv__side">
+      <p class="cv__h">Research interests</p>
+      <ul class="cv__interests">
+        {interests.map((i) => <li>{i}</li>)}
+      </ul>
+
+      <p class="cv__h">Profiles</p>
+      <ul class="cv__links">
+        {profiles.map((l) => <li><a href={l.url}>{l.label}</a>{l.note && <span>{l.note}</span>}</li>)}
+      </ul>
+
+      <p class="cv__h">Contact</p>
+      <p class="cv__contact">
+        Department of Aerospace Engineering<br />
+        Escuela Politécnica Superior, UC3M<br />
+        Av. de la Universidad 30<br />
+        28911 Leganés, Madrid, Spain<br />
+        masolera [at] ing.uc3m.es
+      </p>
+    </aside>
+
+    <div class="cv__main">
+      <section class="block">
+        <h2 id="profile">Profile</h2>
+        <p>
+          I am Full Professor in the Department of Aerospace Engineering at UC3M, where I direct the{' '}
+          <a href={site.phdProgramme}>PhD Programme in Aerospace Engineering</a> and lead the{' '}
+          <a href={site.labUrl}>{site.labName}</a>. I hold an MSc in Aerospace Engineering (UPM, 2007) and a PhD in
+          Aerospace Engineering (URJC, 2013), and I have been visiting scholar at ETH Zürich and UC Berkeley and
+          visiting professor at MIT.
+        </p>
+        <p>
+          My research addresses the climate impact of aviation and how to mitigate it through operations: contrail
+          detection, modelling and forecasting, climate-optimal trajectory optimisation, and artificial intelligence
+          for aviation weather and air traffic management.
+        </p>
+        <p>
+          Since joining UC3M in 2014 I have been PI of 17 competitive projects, 10 of them European and 4 as
+          coordinator (ALARM, START, E-CONTRAIL and E-CONTRAIL 2). I have supervised or am supervising 17 doctoral
+          theses and have published more than 60 JCR articles, 3 book chapters and more than 60 conference papers; the
+          up-to-date record is on the <a href="/publications/">Publications</a> page.
+        </p>
+        <p>
+          I am co-developer of the open-source libraries CLIMaCCF, ROC and ROOST, co-founder of the spin-off{' '}
+          <a href={site.spinOff}>AI Methods</a>, and was named Spain's National Champion of the 2026 Frontiers Planet
+          Prize. I also run <a href="/outreach/">outreach activities</a> at Researchers' Night, Science Week and
+          schools.
+        </p>
+      </section>
+
+      <section class="block">
+        <h2 id="highlights">Highlights</h2>
+        <ul class="rows">
+          {
+            highlights.map((h) => (
+              <li>
+                <span class="rows__label">{h.label}</span>
+                <div>
+                  <div class="rows__title">{h.url ? <a href={h.url}>{h.title}</a> : h.title}</div>
+                  <div class="rows__meta">{h.text}</div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="block">
+        <h2 id="positions">Positions and education</h2>
+        <ul class="rows">
+          {
+            positions.map((h) => (
+              <li>
+                <span class="rows__label">{h.label}</span>
+                <div>
+                  <div class="rows__title">{h.title}</div>
+                  <div class="rows__meta">{h.text}</div>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+    <section class="block">
+      <h2 id="awards">Awards and recognition</h2>
+      <ul class="rows">
+        {
+          awards.map((a) => (
+            <li>
+              <span class="rows__label">{a.year}</span>
+              <div>
+                <div class="rows__title">{a.url ? <a href={a.url}>{a.title}</a> : a.title}</div>
+                <div class="rows__meta">{a.text}</div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 id="talks">Invited talks and service</h2>
+      <ul class="rows">
+        {
+          talks.map((a) => (
+            <li>
+              <span class="rows__label">{a.year}</span>
+              <div>
+                <div class="rows__title">{a.url ? <a href={a.url}>{a.title}</a> : a.title}</div>
+                <div class="rows__meta">{a.text}</div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    </div>
+  </div>
+</Base>
+
+<style>
+  .cv {
+    display: grid;
+    grid-template-columns: 270px minmax(0, 1fr);
+    gap: clamp(32px, 6vw, 80px);
+  }
+  .cv__side {
+    position: sticky;
+    top: 108px;
+    align-self: start;
+    font-size: 0.98rem;
+  }
+  .cv__h {
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-ink);
+    margin: 0 0 10px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .cv__h:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+  .cv__side ul {
+    list-style: none;
+    margin: 0 0 24px;
+    padding: 0;
+  }
+  .cv__interests li {
+    padding: 5px 0;
+    line-height: 1.35;
+  }
+  .cv__links li {
+    padding: 5px 0;
+  }
+  .cv__links a {
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .cv__links a:hover {
+    text-decoration: underline;
+  }
+  .cv__links span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+  .cv__contact {
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  @media (max-width: 900px) {
+    .cv {
+      grid-template-columns: 1fr;
+    }
+    .cv__side {
+      position: static;
+      order: 2;
+    }
+  }
+</style>

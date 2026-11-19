@@ -3,7 +3,12 @@ title: Climate-Optimized Trajectories
 order: 3
 tagline: Flight plans that avoid climate-sensitive regions of the atmosphere at low operational cost.
 summary: Robust flight planning that weighs CO₂ and non-CO₂ climate effects against fuel, time and cost, built on open-source planners and optimal control theory.
-cardImage: /figures/F08_climate_optimal_routing.png
+cardImage: /figures/photo_a350_cockpit.jpg
+cardInset:
+  image: /figures/simorgh2025_cee_fig1.png
+  side: left
+  width: 42
+cardCredit: "Photo: J. C. Medau, CC BY 2.0"
 people:
   - name: Abolfazl Simorgh
     role: Climate-optimal flight planning (ROOST, CLIMaCCF)

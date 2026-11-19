@@ -7,10 +7,12 @@ export interface LabNewsItem {
   url: string;
   date: Date;
   excerpt: string;
+  /** Featured image of the post, when it has one. */
+  image: string | null;
 }
 
 const ENDPOINT =
-  'https://aircraftoperationslab.com/wp-json/wp/v2/posts?per_page=5&_fields=date,link,title,excerpt';
+  'https://aircraftoperationslab.com/wp-json/wp/v2/posts?per_page=5&_embed=wp:featuredmedia&_fields=date,link,title,excerpt,_links,_embedded';
 
 const NAMED: Record<string, string> = {
   amp: '&',
@@ -40,6 +42,12 @@ function shorten(text: string, max = 220): string {
   return clean.slice(0, clean.lastIndexOf(' ', max)) + '…';
 }
 
+function featuredImage(post: any): string | null {
+  const media = post._embedded?.['wp:featuredmedia']?.[0];
+  const sizes = media?.media_details?.sizes ?? {};
+  return sizes.large?.source_url ?? sizes.medium_large?.source_url ?? media?.source_url ?? null;
+}
+
 let cached: Promise<LabNewsItem[]> | undefined;
 
 async function load(): Promise<LabNewsItem[]> {
@@ -52,6 +60,7 @@ async function load(): Promise<LabNewsItem[]> {
       url: String(p.link),
       date: new Date(p.date),
       excerpt: shorten(decode(p.excerpt?.rendered ?? '')),
+      image: featuredImage(p),
     }));
   } catch (err) {
     console.warn(`[lab-news] Could not load Lab news (${(err as Error).message}); showing link only.`);

@@ -2,3 +2,7 @@ node_modules/
 dist/
 .astro/
 .DS_Store
+
+# Local-only comparison of research-line images (includes unpublished figures)
+src/pages/figure-options.astro
+public/figures/options/

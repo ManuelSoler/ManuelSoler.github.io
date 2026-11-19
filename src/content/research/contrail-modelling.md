@@ -3,7 +3,12 @@ title: Contrail Modelling
 order: 2
 tagline: Predicting where contrails form and how they evolve, with machine learning and first-principles physics.
 summary: Data-driven forecasts of ice-supersaturated regions and contrail radiative forcing, and MultiCon, a fast physics-based model of long-term contrail evolution.
-cardImage: /figures/F02_physics_driven_contrail_modelling.png
+cardImage: /figures/photo_dc8_contrails.jpg
+cardInset:
+  image: /figures/P10_multicon_plume_comparison.png
+  side: left
+  width: 36
+cardCredit: "Photo: NASA / E. Winstead"
 people:
   - name: Amin Jafarimoghaddam
     role: Physics-based contrail modelling (MultiCon)

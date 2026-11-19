@@ -10,6 +10,15 @@ const research = defineCollection({
     tagline: z.string(),
     summary: z.string(),
     cardImage: z.string(),
+    // Optional result figure framed over the card photograph.
+    cardInset: z
+      .object({
+        image: z.string(),
+        side: z.enum(['left', 'right']).default('right'),
+        width: z.number().default(40),
+      })
+      .optional(),
+    cardCredit: z.string().optional(),
     people: z.array(z.object({ name: z.string(), role: z.string() })).default([]),
     projects: z
       .array(

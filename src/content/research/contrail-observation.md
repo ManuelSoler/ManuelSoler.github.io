@@ -3,7 +3,12 @@ title: Contrail Observation
 order: 1
 tagline: Detecting contrails from space and measuring, from observations, what they do to the climate.
 summary: AI-based detection of contrails in satellite imagery and observation-based estimates of their radiative forcing over Europe and the North Atlantic.
-cardImage: /figures/F04_automated_contrail_detection.png
+cardImage: /figures/photo_modis_contrails_iberia.jpg
+cardInset:
+  image: /figures/P07_ortiz2026_monthly_detection_maps.png
+  side: right
+  width: 38
+cardCredit: "Photo: NASA MODIS"
 people:
   - name: Irene Ortiz
     role: Satellite contrail detection and radiative forcing

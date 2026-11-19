@@ -11,6 +11,15 @@ const lines = (await getCollection('research')).sort((a, b) => a.data.order - b.
         <a class="line" href={`/research/${line.id}/`}>
           <div class="line__img">
             <img src={line.data.cardImage} alt="" loading="lazy" />
+            {line.data.cardInset && (
+              <div
+                class={`line__inset line__inset--${line.data.cardInset.side}`}
+                style={`width: ${line.data.cardInset.width}%`}
+              >
+                <img src={line.data.cardInset.image} alt="" loading="lazy" />
+              </div>
+            )}
+            {line.data.cardCredit && <span class="line__credit">{line.data.cardCredit}</span>}
           </div>
           <div class="line__body">
             <span class="line__num">{String(line.data.order).padStart(2, '0')}</span>
@@ -50,15 +59,42 @@ const lines = (await getCollection('research')).sort((a, b) => a.data.order - b.
     transform: translateY(-3px);
   }
   .line__img {
+    position: relative;
     aspect-ratio: 16 / 9;
     overflow: hidden;
     background: var(--soft);
     border-bottom: 1px solid var(--line);
   }
-  .line__img img {
+  .line__img > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  /* A result from a paper, framed over the photograph. */
+  .line__inset {
+    position: absolute;
+    bottom: 6%;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(11, 12, 42, 0.45);
+  }
+  .line__inset--right {
+    right: 4%;
+  }
+  .line__inset--left {
+    left: 4%;
+  }
+  .line__inset img {
+    width: 100%;
+  }
+  .line__credit {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.85);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
   }
   .line__body {
     display: flex;

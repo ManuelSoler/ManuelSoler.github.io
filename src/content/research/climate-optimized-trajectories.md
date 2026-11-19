@@ -23,7 +23,7 @@ projects:
     url: https://www.f4eclim.eu
   - name: ClimAtion
     description: Climate-smart optimal aircraft operations for next-generation aviation.
-    funding: Spanish National R&D Plan · 2026–2029
+    funding: Spanish National R&D Plan · 2025–2028
     url: https://aircraftoperationslab.com/climation
   - name: FlyATM4E
     description: Flying Air Traffic Management for the benefit of environment and climate.
@@ -36,21 +36,26 @@ projects:
 CO₂ is only part of aviation's climate footprint. Non-CO₂ effects, including contrails, nitrogen oxides and water vapour, account for around two-thirds of aviation's radiative forcing and, unlike CO₂, their impact depends strongly on where and when the emission takes place. This opens an opportunity: by avoiding climate-sensitive regions of the atmosphere, a flight can substantially reduce its climate impact.
 
 <figure>
-  <img src="/figures/F08_climate_optimal_routing.png" alt="A cost-optimal route crossing a climate-sensitive region and a climate-optimal route that avoids it with a small detour and altitude change" loading="lazy" />
-  <figcaption>Small route and altitude changes avoid climate-sensitive regions. The trade-off between extra operating cost and climate benefit is typically very favourable (schematic).</figcaption>
+  <img src="/figures/simorgh2025_cee_fig1.png" alt="Overview of aviation-induced climate change, mitigation measures and the contribution of contrails" loading="lazy" />
+  <figcaption>Aviation-induced climate impact and mitigation measures. <span class="credit">Simorgh & Soler (2025), Communications Earth & Environment, Fig. 1.</span></figcaption>
 </figure>
 
 We design climate-optimal trajectories that weigh this benefit against fuel, time and operating cost. Climate-sensitive regions are identified with algorithmic climate change functions, available in the open-source library CLIMaCCF developed with DLR, and trajectories are optimised with ROOST and ROC. Because both weather forecasts and climate impact estimates are uncertain, we plan robustly, looking for routes that remain beneficial across ensemble forecasts and across several climate models.
 
 Our analysis of European traffic shows that climate-optimised flight planning can effectively reduce the environmental footprint of aviation at low operational cost. Contrails are not the only target: a year-long study of the 50 busiest European routes, carried out in the F4EClim project, shows that ozone-aware flight planning can cut the warming caused by NOₓ-induced ozone by around 30–35% on summer days for at most 3% additional operating cost, mainly through altitude changes, and could therefore complement contrail avoidance.
 
+<figure>
+  <img src="/figures/P14_sids2026_f4eclim_ozone_profiles.png" alt="Vertical trajectories between Istanbul and London over the ozone climate sensitivity field, in winter and summer" loading="lazy" />
+  <figcaption>Cost-optimal and ozone-optimal vertical trajectories between Istanbul and London over the NOₓ–ozone climate sensitivity, in winter (left) and summer (right). <span class="credit">Simorgh et al. (2026), SESAR Innovation Days 2026, Fig. 2.</span></figcaption>
+</figure>
+
 ## Robust flight planning under uncertainty
 
 A flight plan defines the route, the flight levels and the speeds an aircraft will follow, and a good plan exploits winds and temperatures to burn as little fuel as possible. The difficulty is that the weather is only known through forecasts, which are always uncertain.
 
 <figure>
-  <img src="/figures/F07_fuel_efficient_planning.png" alt="Lateral route exploiting winds and vertical profile with step climbs, as computed by the ROC and ROOST planners" loading="lazy" />
-  <figcaption>Flight planning exploits winds laterally and step climbs vertically. ROC and ROOST are open-source planners for free-route and structured airspace (schematic).</figcaption>
+  <img src="/figures/P5_simorgh2023_lateral_paths.png" alt="Cost-optimal and climate-optimal lateral paths over wind and contrail climate change function maps at several flight levels" loading="lazy" />
+  <figcaption>Cost-optimal and climate-optimal lateral paths over (a) the wind field and (b) the contrail climate change function at several flight levels, computed with ROOST. <span class="credit">Simorgh et al. (2023), Geosci. Model Dev., Fig. 10. CC BY 4.0.</span></figcaption>
 </figure>
 
 We develop flight planning methods that are both efficient and robust to that uncertainty, and release them as open-source software. ROOST plans trajectories within today's structured airspace: it optimises the lateral route and the vertical profile together, covers climb, cruise and descent, and uses GPU parallelisation to evaluate thousands of candidate plans against ensemble weather forecasts in seconds. ROC addresses the free-route airspace concept through robust optimal control. Instead of a plan that is optimal only for one forecast, both tools deliver trajectories that perform well across the range of likely weather scenarios.

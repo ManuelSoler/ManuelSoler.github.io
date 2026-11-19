@@ -195,7 +195,12 @@ const num = String(line.data.order).padStart(2, '0');
     margin: 2em 0;
   }
   .prose :global(figure img) {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 620px;
+    margin: 0 auto;
+    padding: 8px;
+    background: #fff;
     border: 1px solid var(--line);
   }
   .prose :global(figcaption) {
@@ -205,6 +210,12 @@ const num = String(line.data.order).padStart(2, '0');
     font-size: 0.92rem;
     line-height: 1.45;
     color: var(--muted);
+  }
+  .prose :global(figcaption .credit) {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.84rem;
+    font-style: italic;
   }
   .prose :global(#key-references + ul) {
     list-style: none;

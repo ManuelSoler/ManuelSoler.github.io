@@ -49,24 +49,25 @@ export const ongoing: Project[] = [
     role: 'Coordinator',
     funding: 'SESAR 3 JU · Horizon Europe · Grant 101287164',
     logo: econtrail2,
+    period: '2026–2028',
   },
   {
     name: 'ClimAtion',
     title: 'Climate-smart optimal aircraft operations for next-generation aviation.',
     funding: 'Spanish National R&D Plan · Knowledge Generation 2024',
-    period: '2026–2029',
     role: 'PI, with J. García-Heras',
     url: 'https://aircraftoperationslab.com/climation',
     logo: climation,
+    period: '2025–2028',
   },
   {
     name: 'Contrail Aware',
     title: 'Advancing state-of-the-art contrail research into a practical industry solution.',
     funding: 'Public–private collaboration · MICIU/AEI',
-    period: '2026–2029',
     role: 'PI',
     url: 'https://aircraftoperationslab.com/contrail-aware',
     logo: contrailAware,
+    period: '2025–2028',
   },
   {
     name: 'ISSR-Aware',
@@ -96,6 +97,14 @@ export const ongoing: Project[] = [
     funding: 'SESAR 3 JU · Horizon Europe · Grant 101114701',
     logo: kairos,
   },
+  {
+    name: 'ContrailMIP',
+    title:
+      'International contrail model intercomparison project, comparing models from plume-scale processes to global climate impacts.',
+    funding: 'International initiative · Imperial College London',
+    role: 'Participant',
+    url: 'https://www.imperial.ac.uk/aerospace-environmental-impacts/contrailmip/',
+  },
 ];
 
 export const completedAsPI: Project[] = [
@@ -106,6 +115,7 @@ export const completedAsPI: Project[] = [
     role: 'PI',
     logo: refmap,
     url: 'https://www.refmap.eu',
+    period: '2023–2026',
   },
   {
     name: 'E-CONTRAIL',
@@ -123,6 +133,7 @@ export const completedAsPI: Project[] = [
     funding: 'CM-UC3M agreement',
     url: 'https://h2genating.com',
     logo: hydrogenating,
+    period: '2022–2023',
   },
   {
     name: 'StormATS',
@@ -130,6 +141,7 @@ export const completedAsPI: Project[] = [
     funding: 'Spanish National R&D Plan · Knowledge Generation 2021',
     url: 'https://storm-ats.com/',
     logo: stormats,
+    period: '2022–2025',
   },
   {
     name: 'INTELMET PoC',
@@ -137,6 +149,7 @@ export const completedAsPI: Project[] = [
     url: 'https://aircraftoperationslab.com/intelmet-proof-of-concept/',
     logo: intelmet,
     funding: 'MCIN/AEI · NextGenerationEU/PRTR · PDC2022-133884-I00',
+    period: '2022–2024',
   },
   {
     name: 'ALARM',
@@ -184,8 +197,8 @@ export const completedAsPI: Project[] = [
     name: 'MetATS',
     title: 'Managing meteorological uncertainty for a more efficient air traffic system.',
     funding: 'Spanish National R&D Plan · Retos Investigación 2018 · RTI2018-098471-B-C32',
-    period: '2019–2021',
     logo: metats,
+    period: '2019–2022',
   },
   {
     name: 'STORMY',

@@ -2,6 +2,8 @@
 // If ORCID is unreachable the build still succeeds and the page links to the
 // ORCID profile instead.
 
+import { extraPublications } from '../data/extraPublications';
+
 const ORCID_ID = '0000-0002-4664-1693';
 const API = `https://pub.orcid.org/v3.0/${ORCID_ID}`;
 const HEADERS = { Accept: 'application/json' };
@@ -44,7 +46,7 @@ async function getJson(url: string): Promise<any> {
   return res.json();
 }
 
-async function load(): Promise<WorkGroup[]> {
+async function load(): Promise<Work[]> {
   const summary = await getJson(`${API}/works`);
   const summaries: any[] = (summary.group ?? []).map((g: any) => g['work-summary'][0]);
 
@@ -82,6 +84,13 @@ async function load(): Promise<WorkGroup[]> {
     };
   });
 
+  return works;
+}
+
+function group(orcidWorks: Work[]): WorkGroup[] {
+  const have = new Set(orcidWorks.map((w) => key(w.title)));
+  const works = [...orcidWorks, ...extraPublications.filter((w) => !have.has(key(w.title)))];
+
   // Drop a preprint when the same title was later published elsewhere.
   const preprintTypes = new Set(GROUPS.find((g) => g.id === 'preprints')!.types);
   const published = new Set(works.filter((w) => !preprintTypes.has(w.type)).map((w) => key(w.title)));
@@ -101,14 +110,16 @@ async function load(): Promise<WorkGroup[]> {
 let cached: Promise<WorkGroup[]> | undefined;
 
 export function getPublications(): Promise<WorkGroup[]> {
-  cached ??= load().catch((err) => {
-    console.warn(`[orcid] Could not load publications (${(err as Error).message}); showing link only.`);
-    return [];
-  });
+  cached ??= load()
+    .catch((err) => {
+      console.warn(`[orcid] Could not load publications (${(err as Error).message}); showing hand-added works only.`);
+      return [] as Work[];
+    })
+    .then(group);
   return cached;
 }
 
-export function formatAuthors(authors: string[], max = 10): string {
+export function formatAuthors(authors: string[], max = 12): string {
   if (authors.length === 0) return '';
   if (authors.length <= max) return authors.join(', ');
   return `${authors.slice(0, 5).join(', ')}, et al.`;
